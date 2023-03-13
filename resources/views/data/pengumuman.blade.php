@@ -5,10 +5,10 @@
 <div class="card">
     <div class="card-header">
         <div class="card-title">Table Pengumuman</div>
-        <a href="/pengumumancreate" class="btn btn-primary" >Tambah </a> 
+        <a href="/pengumumancreate" class="btn btn-primary" >Tambah </a>
     </div>
     <div class="card-body">
-        
+
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -34,12 +34,12 @@
                         <td>{!! $data->deskripsi !!}</td>
                         <td><a href="/pengumumanedit/{{ $data->id }}" class="btn btn-warning">
                             <i class="la la-pencil"></i></a>
-                        
-                               <a href="/deletepengumuman/{{ $data->id }}" class="btn btn-danger deletepengumuman"
+
+                               <a href="#" class="btn btn-danger deletepengumuman"
                             data-id="{{ $data->id }}"
                             data-pengumuman="{{ $data->pengumuman }}">
-                            <i class="la la-trash-o"></i></a></td> 
-                       
+                            <i class="la la-trash-o"></i></a></td>
+
                     </tr>
                     @endforeach
                 </tbody>
@@ -53,26 +53,27 @@
 @include('admin.footeradmin')
 <script>
     $('.deletepengumuman').click(function() {
-        var pengumumanid = $(this).attr('data-id');
-        var pengumuman = $(this).attr('data-pengumuman');
-        Swal.fire({
-            title: 'Apakah Kamu yakin?',
-            text: "Menghapus pengumuman " + pengumuman + "",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, hapus!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location = "/deletepengumuman/" + pengumumanid + ""
-                Swal.fire(
-                    'Terhapus!',
-                    'data ' + pengumuman + ' terhapus',
-                    'success'
-                )
-            }
-        })
+        var beritaid = $(this).attr('data-id');
+        var berita = $(this).attr('data-berita');
+
+        swal({
+                title: "Apakah kamu yakin?",
+                text: "Kamu akan menghapus berita " + berita + "",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location = "/deletepengumuman/" + beritaid + ""
+                    swal("Data berhasil dihapus", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Data tidak jadi dihapus");
+                }
+            });
     });
 </script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @endsection

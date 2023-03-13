@@ -51,4 +51,4 @@ Route::get('/beritacreate',[BeritaController::class, 'beritacreate'])->name('ber
 Route::post('/beritastore',[BeritaController::class, 'beritastore'])->name('beritastore');
 Route::get('/beritaedit/{id}',[BeritaController::class, 'beritaedit'])->name('beritaedit');
 Route::post('/beritaupdate/{id}',[BeritaController::class, 'beritaupdate'])->name('beritaupdate');
-Route::get('/deleteberita/{id}',[BeritaController::class, 'beritahapus'])->name('beritahapus');
+Route::get('/beritahapus/{id}',[BeritaController::class, 'beritahapus'])->name('beritahapus');

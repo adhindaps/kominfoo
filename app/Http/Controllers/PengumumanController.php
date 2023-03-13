@@ -29,7 +29,7 @@ class PengumumanController extends Controller
      * Store a newly created resource in storage.
      */
     public function pengumumanstore(Request $request)
-    
+
         {
             if($request->hasFile('foto')){
                 $request->file('foto')->move('foto/', $request->file('foto')->getClientOriginalName());
@@ -43,12 +43,12 @@ class PengumumanController extends Controller
         }
             return redirect()->route('pengumumanindex')->with('success', 'Data Berhasil Di Tambahkan');
         }
-    
+
 
     /**
      * Display the specified resource.
      */
-    public function show(pengumuman $pengumuman)
+    public function show()
     {
         //
     }
@@ -59,32 +59,32 @@ class PengumumanController extends Controller
     public function pengumumanedit($id)
     {
         $data = pengumumen::find($id);
-        $data = pengumumen::findOrfail($id);
+        // $data = pengumumen::findOrfail($id);
         return view('data.pengumumanedit',compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function pengumumanupdate($id, pengumuman $pengumuman)
+    public function pengumumanupdate(Request $request, $id)
     {
-        $data = DB::table('pengumumen')->where('id',$id);
+        $data = pengumumen::where('id',$id);
         if($request->hasFile('foto')){
             $pindah = $request->file('foto')->move(public_path().'\storage', $request->file('foto')->getClientOriginalName());
-            $data = pengumuman::find($id)->update([
+            $data = pengumumen::find($id)->update([
                'foto' => $request->file('foto')->getClientOriginalName(),
                'namakegiatan' => $request->namakegiatan,
                'judul' => $request->judul,
                'deskripsi' => $request->deskripsi,
             ]);
-        return redirect('pengumumanindex')->with('sukses','Updatedata!');
+        return redirect('pengumumanindex')->with('success','Updatedata!');
     }else{
         $data->update([
             'namakegiatan' => $request->namakegiatan,
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
         ]);
-        return redirect('pengumumanindex')->with('sukses','Updatedata!');
+        return redirect('pengumumanindex')->with('success','Updatedata!');
     }
     }
 
@@ -96,6 +96,6 @@ class PengumumanController extends Controller
         $data = pengumumen::find($id);
         $data->delete();
         return redirect()->route('pengumumanindex')->with('success', 'Data Berhasil Dihapus');
-    
+
     }
 }

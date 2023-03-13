@@ -40,7 +40,7 @@ class BeritaController extends Controller
         $data->foto = $request->file('foto')->getClientOriginalName();
     }
         return redirect()->route('beritaindex')->with('success', 'Data Berhasil Di Tambahkan');
-   
+
     }
 
     /**
@@ -91,6 +91,6 @@ class BeritaController extends Controller
     {
         $data = Berita::find($id);
         $data->delete();
-        return redirect('/beritaindex');
+        return redirect('/beritaindex')->with('sukses', 'Data Berhasil Dihapus');
     }
 }
